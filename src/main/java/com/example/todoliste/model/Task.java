@@ -7,6 +7,8 @@ public class Task {
     private StringProperty task;
     private StringProperty date;
 
+    private final StringProperty status = new SimpleStringProperty();
+
     public Task(String task, String date){
         this.task = new SimpleStringProperty(task);
         this.date = new SimpleStringProperty(date);
@@ -28,6 +30,14 @@ public class Task {
         this.date.set(date);
     }
 
+    public void setStatus(String value){
+        status.set(value);
+    }
+
+    public String getStatus(){
+        return status.get();
+    }
+
     public StringProperty taskProperty(){
         if(task == null){
             task = new SimpleStringProperty("-");
@@ -42,8 +52,7 @@ public class Task {
         return date;
     }
 
-    @Override
-    public String toString() {
-        return "Aufgabe: " + task + ", Fälligkeitsdatum: " + date + "\n";
+    public StringProperty statusProperty(){
+        return status;
     }
 }
