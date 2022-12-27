@@ -2,7 +2,6 @@ module com.example.todoliste {
     requires javafx.controls;
     requires javafx.fxml;
 
-
-    opens com.example.todoliste to javafx.fxml;
-    exports com.example.todoliste;
+    exports com.example.todoliste.application;
+    opens com.example.todoliste.application to javafx.fxml;
 }
