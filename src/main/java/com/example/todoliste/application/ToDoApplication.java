@@ -50,6 +50,10 @@ public class ToDoApplication extends Application {
 
         btn_add.setPrefWidth(100);
         btn_clear.setPrefWidth(100);
+        taskCol.setPrefWidth(200);
+        dateCol.setPrefWidth(200);
+        statusCol.setPrefWidth(200);
+        priorityCol.setPrefWidth(200);
 
         tView.setEditable(true);
         tView.getColumns().addAll(taskCol, dateCol, priorityCol, statusCol);
@@ -63,12 +67,15 @@ public class ToDoApplication extends Application {
             todo.add(newTask);
             taskCol.setCellValueFactory((p) -> p.getValue().taskProperty()); //return
             dateCol.setCellValueFactory((p) -> p.getValue().dateProperty()); //return
+
             statusCol.setCellFactory((p)->{
                 TableCell<Task, StringProperty> status = new TableCell<>();
                 final ComboBox<String> combo_status = new ComboBox<>(options);
+                combo_status.prefWidthProperty().bind(statusCol.widthProperty().subtract(2));
                 status.graphicProperty().bind(Bindings.when(status.emptyProperty()).then((Node) null).otherwise(combo_status));
                 return status;
             });
+
             numTasks.incrementAndGet();
             priorityCol.setCellFactory((p) ->{
                 TableCell<Task, IntegerProperty> priority = new TableCell<>();
@@ -78,9 +85,14 @@ public class ToDoApplication extends Application {
                         priorities.add(i);
                     }
                 }
+                combo_priority.prefWidthProperty().bind(statusCol.widthProperty().subtract(2));
                 priority.graphicProperty().bind(Bindings.when(priority.emptyProperty()).then((Node) null).otherwise(combo_priority));
                 return priority;
             });
+            tView.setItems(todo);
+            tView.getSelectionModel().select(newTask);
+            tf_task.clear();
+            tf_date.clear();
         });
 
 
